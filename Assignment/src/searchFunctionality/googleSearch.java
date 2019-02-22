@@ -11,24 +11,36 @@ public class googleSearch {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\ext579458\\Assignment\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
-	    driver.get("http://www.google.com");
-	    WebElement searchField = driver.findElement(By.name("q"));
-	    searchField.sendKeys("Topdanmark");
-	    //WebElement searchButton = driver.findElement(By.name("btnK"));
-	    //searchButton.click();
-	    
-	   List<WebElement> list = driver.findElements(By.xpath("//ul[@role='listbox']//li/descendant::div[@class='sbl1 sbl1p']"));
-	   
-	   for (int j = 0; j < 1; j++) {
-	  String result = list.get(j).getText();
-	  System.out.println(result);
-	  if (result.equals("Topdanmark"))
-		  System.out.println("Pass");
-		  else{
-			  System.out.println("Fail");
-		  }
-		  }
+		try {
+		driver.get("https://www.google.com");
+		driver.manage().window().maximize();
+		Thread.sleep(300); 
+		String Title = driver.getTitle();
+		System.out.println(Title);
+		if(Title.contentEquals("Google")){
+		System.out.println("Google has been opened successfully");
+		}
+		else{
+		System.out.println("Google is not opened");
+		}
+		driver.findElement(By.xpath("//input[@name='q']")).sendKeys("Topdanmark");
+		Thread.sleep(300);
+		System.out.println(driver.findElements(By.xpath("//ul[@class='erkvQe']//li")).size());
+		if(driver.findElements(By.xpath("//ul[@class='erkvQe']//li")).size()>0){
+		List<WebElement> SearchList = driver.findElements(By.xpath("//ul[@class='erkvQe']//li"));
+		System.out.println("Suggestion list value:" + SearchList.get(0).getText());
+		if (SearchList.get(0).getText().equalsIgnoreCase("Topdanmark")){
+		System.out.println("Content found exactly same");
+		}else{
+		System.out.println("Content found mismatching");
+		}
+		}
+		} catch (InterruptedException e) {
+		e.printStackTrace();
+		}
+		driver.quit();
 	}
 
 }
