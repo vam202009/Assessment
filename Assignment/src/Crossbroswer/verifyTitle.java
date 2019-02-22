@@ -21,8 +21,7 @@ WebDriver driver;
 			else if(browserName.equalsIgnoreCase("chrome"))
 				
 			{
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\ext579458\\Assignment\\chromedriver");
-			driver=new ChromeDriver();
+			    driver=new ChromeDriver();
 			}
 			
 		driver.get("https://www.topdanmark.dk");
